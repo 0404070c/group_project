@@ -2,27 +2,53 @@
 {% load staticfiles %}
 
 {% block title_block %}
-Register
+    Welcome to Rango
 {% endblock %}
 
 {% block body_block %}
-    <h1>About Page</h1>
     {% if registered %}
         Rango says: <strong>thank you for registering!</strong>
         <a href="{% url 'index' %}">Return to the homepage.</a><br />
     {% else %}
-        Rango says: <strong>register here!</strong><br />
-        <form id="user_form" method="post" action="{% url 'register' %}"
-        enctype="multipart/form-data">
-
-        {% csrf_token %}
+<!--        Rango says: <strong>register here!</strong><br /> -->
+<!--        <form id="user_form" method="post" action="{% url 'register' %}" -->
+       <!-- enctype="multipart/form-data"> --
 
         <!-- Display each form -->
-        {{ user_form.as_p }}
-        {{ profile_form.as_p }}
+        <!-- {{ user_form.as_p }}  -->
+        <!--  {{ profile_form.as_p }} -->
+        <div class="container-fluid menu">
+		    <div class="container">
+			    <ul class="nav">
+				    <li class="nav-item"><a class="nav-link"><span class="nav-title">Register below </span></a></li>
+			    </ul>
+		    </div>
+	    </div>
+        <div class="container">
+	    	<div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <div class="card form">
+                        <div class="form-header">
+                            <div class="form-title">
+                                <h2>Register</h2>
+                                <h4>Enter your email address and create a password to register.</h4>
+                            </div>
+                            <div class="form-icon">
+                                <span class="fa fa-pencil"></span>
+                            </div>
+                        </div>
 
-        <!-- Provide a button to click to submit the form. -->
-        <input type="submit" name="submit" value="Register" />
-    </form>
+                        <div class="form-main">
+                            <div class="form-group">
+                                <form id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="text" class="form-control" id="username" placeholder="Email Address">
+                                    <input type="password" class="form-control" id="password" placeholder="Password">
+                                    <button type="submit" name="submit" id="form-submit" class="btn btn-lg btn-primary btn-block btn-default" value="Register">Register</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
     {% endif %}
 {% endblock %}

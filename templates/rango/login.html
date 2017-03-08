@@ -1,20 +1,32 @@
-{% extends 'rango/base.html' %}
-{% load staticfiles %}
-
-{% block title_block %}
-    Login
-{% endblock %}
-
 {% block body_block %}
-<h1>Login to Rango</h1>
-<form id="login_form" method="post" action="{% url 'login' %}">
 
-    {% csrf_token %}
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="card form">
+            <div class="form-header">
+                <div class="form-title">
+                    <h2>Login</h2>
+                    <h4>Enter your email address and password.</h4>
+                </div>
+                <div class="form-icon">
+                    <span class="fa fa-lock"></span>
+                </div>
+            </div>
 
-    Username: <input type="text" name="username" value="" size="50" />
-    <br />
-    Password: <input type="password" name="password" value="" size="50" />
-    <br />
-    <input type="submit" value="submit" />
-</form>
+            <div class="form-main">
+                <div class="form-group">
+                    <form id="login_form" method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <input type="text" class="form-control" id="login-email" placeholder="Email Address" name="username">
+                        <input type="password" class="form-control" id="login-password" placeholder="Password" name="password">
+                        <button type="submit" id="form-submit" class="btn btn-lg btn-primary btn-block btn-default" value="submit">Login</button>
+                    </form>
+                </div>
+            </div>
+
+					<div class="card-footer">
+						<a href="{% url 'register' %}"><span class="fa fa-users"></span> Click here</a>
+					</div>
+        </div>
+    </div>
+
 {% endblock %}

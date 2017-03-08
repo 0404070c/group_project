@@ -1,0 +1,208 @@
+body {
+  	background-color: #f1f1f1;
+  	color: #212121;
+}
+
+/* NAV ------------------------------------------------------------------------ */
+
+
+.navbar-inverse {
+	background-color: #00796B;
+	color: #fff;
+}
+
+	.navbar-inverse .navbar-nav .nav-link {
+		color: #fff;
+	}
+
+	.navbar-inverse .navbar-nav .nav-link:hover {
+		color: #fff;
+		text-decoration: underline;
+	}
+
+	.navbar-inverse .navbar-nav .navbar-text {
+		padding-right: 25px;
+		color: #fff;
+	}
+
+
+/* MENU ------------------------------------------------------------------------ */
+
+.menu {
+	background-color: #009688;
+	margin-bottom: 50px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.24);
+}
+
+	.menu .nav-link {
+		padding-left: 0;
+		color: #fff;
+	}
+
+	.nav-title{
+		color: #fff;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+
+	.menu .nav-link:hover {
+		text-decoration: underline;
+	}
+
+	.accent {
+		color: #CDDC39;
+		padding-right: 5px;
+	}
+
+
+/* ALBUM ------------------------------------------------------------------------ */
+
+.album {
+	background-color: #fff;
+	margin-bottom: 20px;
+	border-radius: 0;
+	border: none;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.24);
+}
+
+	.card-img-top {
+		border-radius: 0;
+	}
+
+	.card-title {
+		color: #212121;
+	}
+
+	.card-title:hover {
+		color: #212121;
+		text-decoration: underline;
+	}
+
+	.card-text {
+		color: #757575;
+	}
+
+	.card-footer {
+		color: #757575;
+	}
+
+	.card-link {
+		color: #212121;
+	}
+
+	.card-link:hover {
+		color: #212121;
+		text-decoration: underline;
+	}
+
+
+/* FORM ------------------------------------------------------------------------ */
+
+.form {
+	background-color: #fff;
+	border-radius: 0;
+	border: none;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.24);
+	}
+
+	.form-header {
+		overflow: hidden;
+		padding: 25px;
+		background: #fff;
+		}
+
+	.form-title {
+		float: left;
+		width: 75%;
+		}
+
+	.form-title h2 {
+		color: #212121;
+		}
+
+	.form-title h4 {
+		color: #757575;
+		}
+
+	.form-icon {
+		float: left;
+		width: 25%;
+		padding-top: 10px;
+		padding-right: 5px;
+		font-size: 66px;  
+		line-height: 100px;
+		color: #CDDC39;
+		text-align: right;
+		}
+
+	.form-main {
+		padding: 35px 25px 25px 25px;
+		background-color: #fff;
+		}
+
+button.btn {
+	height: 50px;
+	margin-top: 40px;
+	padding: 0 20px;
+	vertical-align: middle;
+	background: #00796B;
+	border: 0;
+	font-size: 16px;
+	line-height: 50px;
+	color: #fff;
+	border-radius: 0;
+	font-weight: bold;
+	text-transform: uppercase;
+	}
+
+button.btn:hover {
+	background: #009688;
+	color: #fff;
+	}
+
+input[type="text"], 
+input[type="email"], 
+input[type="password"] {
+	height: 50px;
+	margin-bottom: 20px;
+	vertical-align: middle;
+	border: 1px solid #BDBDBD;
+	border-radius: 0px;
+	font-size: 16px;
+	line-height: 50px;
+	background-color: #f7f7f9;
+	color: #757575;
+	}
+
+input[type="text"]:focus, 
+input[type="email"]:focus, 
+input[type="password"]:focus,
+input[type="text"]:hover, 
+input[type="email"]:hover, 
+input[type="password"]:hover {
+	outline: 0;
+	background: #fff;
+	border: 1px solid #BDBDBD;
+	-moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;
+	}
+
+/* PHOTO ------------------------------------------------------------------------ */
+
+.photo {
+	margin-bottom: 20px;
+}
+
+
+/* COLOURS ------------------------------------------------------------------------ */
+
+.dark-primary-color    { background: #00796B; }
+.default-primary-color { background: #009688; }
+.light-primary-color   { background: #B2DFDB; }
+.text-primary-color    { color: #FFFFFF; }
+.accent-color          { background: #CDDC39; }
+.primary-text-color    { color: #212121; }
+.secondary-text-color  { color: #757575; }
+.secondary-background-color { color: #f7f7f9; }
+.divider-color         { border-color: #BDBDBD; }
+
+
