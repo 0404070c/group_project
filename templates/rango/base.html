@@ -6,9 +6,9 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>
-        Rango -
+        The Photo Album App -
         {% block title_block %}
-            How to Tango with Django!
+            Welcome!
         {% endblock %}
     </title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -21,15 +21,15 @@
 
 		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
-		<a class="navbar-brand" href="#"><span class="fa fa-camera fa-lg accent"></span> Photo Album App</a>
+		<a class="navbar-brand" href="{% url 'index' %}"><span class="fa fa-camera fa-lg accent"></span> The Photo Album App</a>
 
 		<div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
 			<ul class="navbar-nav">
                 {% if user.is_authenticated %}
 				<li class="nav-item"><span class="navbar-text">Welcome back {{ user.username }}!</span></li>
-				<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><span class="fa fa-sign-out"></span> Log out</a></li>
+				<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><span class="fa fa-sign-out accent"></span> Log out</a></li>
                 {% else %}
-                <li class="nav-item"><span class="navbar-text">Welcome, please Login or Register</span></li>
+                <li class="nav-item"><span class="navbar-text">Welcome, please <span class="fa fa-lock accent"></span>Login or <span class="fa fa-pencil accent"></span>Register</li>
                 {% endif %}
 			</ul>
 		</div>
@@ -42,6 +42,7 @@
 
     </div>
     <div>
+
 <!--
         <ul>
         {% if user.is_authenticated %}
@@ -66,5 +67,6 @@
         {% endblock %}
     </div>
 -->
+
 </body>
 </html>
