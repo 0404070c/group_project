@@ -1,1 +1,1 @@
-# tango_with_django_project
+# group_project
