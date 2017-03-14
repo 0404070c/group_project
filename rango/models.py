@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+import uuid
 
 
 class Category(models.Model):
@@ -19,6 +20,23 @@ class Category(models.Model):
 
     def __str__(self):  # For Python 2, use __unicode__ too
         return self.name
+
+class Album(models.Model):
+    albumId = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    albumName = models.CharField(max_length=128)
+    ownerId = models.ForeignKey(User)
+    # ownerId = models.CharField(max_length=128)
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.albumName)
+        super(Album, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = 'Albums'
+
+    def __str__(self):  # For Python 2, use __unicode__ too
+        return self.albumName
 
 
 class Page(models.Model):

@@ -1,5 +1,5 @@
 from django import template
-from rango.models import Category
+from rango.models import Category, Album
 
 register = template.Library()
 
@@ -9,6 +9,5 @@ def get_category_list(cat=None):
         'act_cat': cat}
 
 @register.inclusion_tag('rango/album-list2.html')
-def get_album_list(album=None):
-    return {'albums': Category.objects.all(),
-        'act_alb': album}
+def get_album_list(user=None):
+    return {'albums': Album.objects.all().filter(ownerId=user)}

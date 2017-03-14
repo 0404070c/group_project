@@ -37,7 +37,7 @@
   <div>
     {% if user.is_authenticated %}
       {% block sidebar_block %}
-        {% get_album_list category %}
+        {% get_album_list user %}
       {% endblock %}
     {% else %}
       <div class="container-fluid menu">
