@@ -52,8 +52,8 @@ class Photo(models.Model):
     class Meta:
         verbose_name_plural = 'Photos'
 
-    def __str__(self):  # For Python 2, use __unicode__ too
-        return str(self.image)
+    def __repr__(self):  # For Python 2, use __unicode__ too
+        return repr(self)
 
 
 
