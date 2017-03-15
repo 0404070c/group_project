@@ -10,4 +10,13 @@ def get_category_list(cat=None):
 
 @register.inclusion_tag('rango/album-list2.html')
 def get_album_list(user=None):
-    return {'albums': Album.objects.all().filter(ownerId=user)}
+    ownedAlbums = Album.objects.all().filter(ownerId=user)
+    allAlbums = Album.objects.all();
+    sharedAlbums = [];
+    for album in allAlbums:
+        sharedUsers = str.split(str(album.sharedUsers), ',')
+        print sharedUsers
+        if user.username in sharedUsers:
+            sharedAlbums.append(album)
+
+    return {'ownedAlbums': ownedAlbums, 'sharedAlbums':sharedAlbums}

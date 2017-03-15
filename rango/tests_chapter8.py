@@ -88,7 +88,7 @@ class Chapter8ViewTests(TestCase):
                  reverse('show_category', args=[categories[0].slug]), reverse('add_page', args=[categories[0].slug])]#, reverse('restricted')]
 
         # Create a list of pages to access
-        templates = ['rango/index.html', 'rango/about.html', 'rango/add_category.html', 'rango/register.html',
+        templates = ['rango/index.html', 'rango/about.html', 'rango/add_album.html', 'rango/register.html',
                      'rango/login.html','rango/category.html', 'rango/add_page.html']#, 'rango/restricted.html']
 
         # For each page in the page list, check if it extends from base template

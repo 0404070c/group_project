@@ -1,10 +1,11 @@
+{% extends 'rango/base.html' %}
 {% load staticfiles %}
 {% block body_block %}
 	<!-- SECOND LEVEL ACTION MENU -->
    <div class="container-fluid menu">
 		<div class="container">
 			<ul class="nav">
-				<li class="nav-item"><a class="nav-link"><span class="nav-title">Album Title </span></a></li>
+				<li class="nav-item"><a class="nav-link"><span class="nav-title">{{ album.albumName }} </span></a></li>
 				<li class="nav-item"><a class="nav-link" href="#"><span class="fa fa-plus-circle fa-lg accent"></span>Add Photos</a></li>
 				<li class="nav-item"><a class="nav-link" href="#"><span class="fa fa-share-alt fa-lg accent"></span>Share Album</a></li>
 				<li class="nav-item"><a class="nav-link" href="#"><span class="fa fa-trash fa-lg accent"></span>Delete Album</a></li>
@@ -12,98 +13,38 @@
 		</div>
 	</div>
 
-    <div class="container">
-		<div class="row">
-			<div class="col-sm-6 col-md-4 col-lg-4">
-				<div class="card photo">
-					<img class="card-img-top" src="{% static "images/download.svg" %}" alt="Card image cap">
-					<div class="card-block">
-						<a href="#" class="card-link"><span class="fa fa-trash"></span> Delete</a>
-						<a href="#" class="card-link"><span class="fa fa-share-alt"></span> Share</a>
-					</div>
-				</div>
-			</div>
+    {% if album %}
+  <div class="container">
+    <div class="row">
+    {% if photos %}
+      {% for photo in photos %}
+        <div class="col-sm-6 col-md-4 col-lg-4">
+          <div class="card photo">
+            <img class="card-img-top" src="{{ MEDIA_ROOT }}/cat.jpg" alt=":-(">
+              <a>{{ photo }}</a>
+            <div class="card-block">
+              <a href="#" class="card-link"><span class="fa fa-trash"></span> Delete</a>
+              <a href="#" class="card-link"><span class="fa fa-share-alt"></span> Share</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <strong>No photos currently in album.</strong>
+    {% endif %}
+    </div>
+  </div>
+{% else %}
+  The specified album does not exist!
+{% endif %}
 
-			<div class="col-sm-6 col-md-4 col-lg-4">
-				<div class="card photo">
-					<img class="card-img-top" src="{% static "images/download.svg" %}" alt="Card image cap">
-					<div class="card-block">
-						<a href="#" class="card-link"><span class="fa fa-trash"></span> Delete</a>
-						<a href="#" class="card-link"><span class="fa fa-share-alt"></span> Share</a>
-					</div>
-				</div>
-			</div>
+     <div>
 
-			<div class="col-sm-6 col-md-4 col-lg-4">
-				<div class="card photo">
-					<img class="card-img-top" src="{% static "images/download.svg" %}" alt="Card image cap">
-					<div class="card-block">
-						<a href="#" class="card-link"><span class="fa fa-trash"></span> Delete</a>
-						<a href="#" class="card-link"><span class="fa fa-share-alt"></span> Share</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-sm-6 col-md-4 col-lg-4">
-				<div class="card photo">
-					<img class="card-img-top" src="{% static "images/download.svg" %}" alt="Card image cap">
-					<div class="card-block">
-						<a href="#" class="card-link"><span class="fa fa-trash"></span> Delete</a>
-						<a href="#" class="card-link"><span class="fa fa-share-alt"></span> Share</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-sm-6 col-md-4 col-lg-4">
-				<div class="card photo">
-					<img class="card-img-top" src="{% static "images/download.svg" %}" alt="Card image cap">
-					<div class="card-block">
-						<a href="#" class="card-link"><span class="fa fa-trash"></span> Delete</a>
-						<a href="#" class="card-link"><span class="fa fa-share-alt"></span> Share</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-sm-6 col-md-4 col-lg-4">
-				<div class="card photo">
-					<img class="card-img-top" src="{% static "images/download.svg" %}" alt="Card image cap">
-					<div class="card-block">
-						<a href="#" class="card-link"><span class="fa fa-trash"></span> Delete</a>
-						<a href="#" class="card-link"><span class="fa fa-share-alt"></span> Share</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-sm-6 col-md-4 col-lg-4">
-				<div class="card photo">
-					<img class="card-img-top" src="{% static "images/download.svg" %}" alt="Card image cap">
-					<div class="card-block">
-						<a href="#" class="card-link"><span class="fa fa-trash"></span> Delete</a>
-						<a href="#" class="card-link"><span class="fa fa-share-alt"></span> Share</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-sm-6 col-md-4 col-lg-4">
-				<div class="card photo">
-					<img class="card-img-top" src="{% static "images/download.svg" %}" alt="Card image cap">
-					<div class="card-block">
-						<a href="#" class="card-link"><span class="fa fa-trash"></span> Delete</a>
-						<a href="#" class="card-link"><span class="fa fa-share-alt"></span> Share</a>
-					</div>
-				</div>
-			</div>
-
-
-			<div class="col-sm-6 col-md-4 col-lg-4">
-				<div class="card photo">
-					<img class="card-img-top" src="{% static "images/download.svg" %}" alt="Card image cap">
-					<div class="card-block">
-						<a href="#" class="card-link"><span class="fa fa-trash"></span> Delete</a>
-						<a href="#" class="card-link"><span class="fa fa-share-alt"></span> Share</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+     {% if album %}
+         {% if user.is_authenticated %}
+         {% else %}
+             <a href="{% url 'login' %}">Sign In to add a page.</a><br />
+         {% endif %}
+     {% endif %}
+      </div>
 {% endblock %}

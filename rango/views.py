@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from rango.models import Category
+from rango.models import Album, Photo
 from rango.models import Page
-from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
+from rango.forms import UserForm, UserProfileForm, AlbumForm, PhotoForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+import uuid
 
 
 def get_server_side_cookie(request, cookie, default_val=None):
@@ -38,10 +39,7 @@ def visitor_cookie_handler(request):
 def index(request):
     request.session.set_test_cookie()
 
-    category_list = Category.objects.order_by('-likes')[:5]
-    page_list = Page.objects.order_by('-views')[:5]
-    context_dict = {'categories': category_list, 'pages': page_list}
-
+    context_dict = {}
 
     # Obtain our Response object early so we can add cookie information.
     visitor_cookie_handler(request)
@@ -51,9 +49,6 @@ def index(request):
     # Call function to handle the cookies
 
     return response
-
-
-
 
 
 def about(request):
@@ -75,46 +70,44 @@ def about(request):
 
     #return render(request, 'rango/about.html', context_dict)
 
-
-
-
-def show_category(request, category_name_slug):
+def show_album(request, album_name_slug):
     # Create a context dictionary which we can pass
     # to the template rendering engine.
     context_dict = {}
 
     try:
-        # Can we find a category name slug with the given name?
+        # Can we find a album name slug with the given name?
         # If we can't, the .get() method raises a DoesNotExist exception.
         # So the .get() method returns one model instance or raises an exception.
-        category = Category.objects.get(slug=category_name_slug)
+        album = Album.objects.get(slug=album_name_slug)
 
         # Retrieve all of the associated pages.
         # Note that filter() will return a list of page objects or an empty list
-        pages = Page.objects.filter(category=category)
+        photos = Photo.objects.filter(albumId=album)
 
         # Adds our results list to the template context under name pages.
-        context_dict['pages'] = pages
-        # We also add the category object from
+        context_dict['photos'] = photos
+
+        # We also add the album object from
         # the database to the context dictionary.
-        # We'll use this in the template to verify that the category exists.
-        context_dict['category'] = category
-    except Category.DoesNotExist:
-        # We get here if we didn't find the specified category.
+        # We'll use this in the template to verify that the album exists.
+        context_dict['album'] = album
+    except Album.DoesNotExist:
+        # We get here if we didn't find the specified album.
         # Don't do anything -
-        # the template will display the "no category" message for us.
-        context_dict['category'] = None
-        context_dict['pages'] = None
+        # the template will display the "no album" message for us.
+        context_dict['album'] = None
+        context_dict['photos'] = None
 
     # Go render the response and return it to the client.
-    return render(request, 'rango/category.html', context_dict)
+    return render(request, 'rango/album.html', context_dict)
 
-def add_category(request):
-    form = CategoryForm()
+def add_album(request):
+    form = AlbumForm()
 
     # A HTTP POST?
     if request.method == 'POST':
-        form = CategoryForm(request.POST)
+        form = AlbumForm(request.POST)
 
         # Have we been provided with a valid form?
         if form.is_valid():
@@ -132,30 +125,29 @@ def add_category(request):
 
     # Will handle the bad form, new form, or no form supplied cases.
     # Render the form with error messages (if any).
-    return render(request, 'rango/add_category.html', {'form': form})
+    return render(request, 'rango/add_album.html', {'form': form})
 
 
-def add_page(request, category_name_slug):
+def add_photo(request, album_name_slug):
     try:
-        category = Category.objects.get(slug=category_name_slug)
-    except Category.DoesNotExist:
-        category = None
+        album = Album.objects.get(slug=album_name_slug)
+    except Photo.DoesNotExist:
+        album = None
 
-    form = PageForm()
+    form = PhotoForm()
     if request.method == 'POST':
-        form = PageForm(request.POST)
+        form = PhotoForm(request.POST)
         if form.is_valid():
-            if category:
+            if album:
                 page = form.save(commit=False)
-                page.category = category
-                page.views = 0
+                page.album = album
                 page.save()
-                return show_category(request, category_name_slug)
+                return show_album(request, album_name_slug)
         else:
             print(form.errors)
 
-    context_dict = {'form': form, 'category': category}
-    return render(request, 'rango/add_page.html', context_dict)
+    context_dict = {'form': form, 'album': album}
+    return render(request, 'rango/add_photo.html', context_dict)
 
 def register(request):
     # A boolean value for telling the template

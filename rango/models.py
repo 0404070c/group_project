@@ -25,11 +25,13 @@ class Album(models.Model):
     albumId = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     albumName = models.CharField(max_length=128)
     ownerId = models.ForeignKey(User)
+    sharedUsers = models.CharField(max_length=2048, default='')
     # ownerId = models.CharField(max_length=128)
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.albumName)
+        self.sharedUsers = 'tester1,tester2'
         super(Album, self).save(*args, **kwargs)
 
     class Meta:
@@ -37,6 +39,22 @@ class Album(models.Model):
 
     def __str__(self):  # For Python 2, use __unicode__ too
         return self.albumName
+
+
+class Photo(models.Model):
+    photoID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    albumId = models.ForeignKey(Album)
+    image = models.ImageField(upload_to='media/')
+
+    def save(self, *args, **kwargs):
+        super(Photo, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = 'Photos'
+
+    def __str__(self):  # For Python 2, use __unicode__ too
+        return str(self.image)
+
 
 
 class Page(models.Model):
