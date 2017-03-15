@@ -18,8 +18,11 @@ Register
         <div class="row">
 
     {% if registered %}
-        Rango says: <strong>thank you for registering!</strong>
-        <a href="{% url 'index' %}">Return to the homepage.</a><br />
+
+        <div class="alert">
+            <strong>Thank you for registering!</strong> <a href="{% url 'index' %}">Return to the homepage to login.</a>
+        </div>
+
     {% else %}
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <img src="{% static "images/main.png" %}" class="img-responsive" alt="Picture of Rango" />
