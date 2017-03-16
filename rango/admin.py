@@ -10,7 +10,7 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
 
 class AlbumAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('albumName',)}
+    prepopulated_fields = {'slug': ('album_name',)}
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Page, PageAdmin)

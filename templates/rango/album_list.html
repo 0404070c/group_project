@@ -1,0 +1,110 @@
+{% load staticfiles %}
+
+<!-- SECOND LEVEL ACTION MENU -->
+<div class="container-fluid menu">
+  <div class="container">
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link"><span class="nav-title">Your Albums </span></a></li>
+      <li class="nav-item"><a class="nav-link" href="add_album"><span class="fa fa-plus-circle fa-lg accent"></span>
+        Create a
+        new album</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+  <div class="container-fluid">
+    <h4 class="display-4">Your albums:</h4>
+    <p class="lead">These are a list of the albums that you have created.</p>
+    <hr class="my-4">
+  </div>
+
+  <div class="row">
+    {% if owned_albums %}
+    {% for album in owned_albums %}
+    <div class="col-sm-6 col-md-4 col-lg-4">
+      <div class="card album">
+        {% for album_name, cover_photo in cover_photo_dict.items %}
+          {% if album_name == album.album_name and not cover_photo is None %}
+            <img class="card-img-top" src="{{ cover_photo.url }}" alt=":-(">
+          {% endif %}
+        {% endfor %}
+        <div class="card-block">
+          <p><a href="{% url 'show_album' album.slug %}"><h2 class="card-title">{{album.album_name}}</h2></a></p>
+          <p class="card-text">{{album.album_description}}</p>
+        </div>
+        <div class="card-footer">
+          <a><span class="fa fa-user"></span> Created by: {{ album.owner_id }} </a>
+        </div>
+
+        {% if album.shared_users_as_list %}
+        <div class="card-footer">
+          <a><span class="fa fa-users"></span> Shared with:
+            {% for user in album.shared_users_as_list %}
+            {% if not user is None %}
+            <span class="badge badge-default"> {{ user }}</span>
+            {% endif %}
+            {% endfor %}
+          </a>
+        </div>
+        {% endif %}
+        <div class="card-footer">
+          <a href="#" class="card-link"><span class="fa fa-trash"></span> Delete</a>
+          <a href="#" class="card-link"><span class="fa fa-share-alt"></span> Share</a>
+        </div>
+        <div class="card-footer">
+          <a href="#" class="card-link"><span class="fa fa-trash"></span> Link {{album.cover_photo}}</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="alert">
+      <strong>You haven't created any albums yet!</strong> Use the menu above to add a new album.</a>.
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="container-fluid">
+    <h4 class="display-4">Albums shared with you:</h4>
+    <p class="lead">These are a list of the albums other people have shared with you.</p>
+    <hr class="my-4">
+  </div>
+
+  <div class="row">
+    {% if shared_albums %}
+    {% for album in shared_albums %}
+    <div class="col-sm-6 col-md-4 col-lg-4">
+      <div class="card album">
+        <div class="card-block">
+          <p><a href="{% url 'show_album' album.slug %}"><h2 class="card-title">{{album.album_name}}</h2></a></p>
+          <p class="card-text">{{album.album_description}}</p>
+        </div>
+        <div class="card-footer">
+          <a><span class="fa fa-user"></span> Created by: {{ album.owner_id }}</a>
+        </div>
+
+        {% if album.shared_users_as_list %}
+        <div class="card-footer">
+          <a><span class="fa fa-users"></span> Shared with:
+            {% for user in album.shared_users_as_list %}
+            {% if not user is None %}
+            <span class="badge badge-default"> {{ user }}</span>
+            {% endif %}
+            {% endfor %}
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="alert">
+      <strong>There are no albums that have been shared with you yet.</strong></a>
+    </div>
+    {% endif %}
+  </div>
+</div>

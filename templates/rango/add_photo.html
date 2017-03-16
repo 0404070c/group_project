@@ -2,21 +2,27 @@
 {% load staticfiles %}
 
 {% block title_block %}
-Add Album
+Add a page
 {% endblock %}
 
 {% block body_block %}
+
+{% if album %}
 <!-- SECOND LEVEL ACTION MENU -->
 <div class="container-fluid menu">
   <div class="container">
     <ul class="nav">
-      <li class="nav-item"><a class="nav-link"><span class="nav-title">Pic 'n' mix - Adding an album</span></a></li>
+      <li class="nav-item"><a class="nav-link"><span class="nav-title">{{ album.album_name }} - Add a photo</span></a>
+      </li>
       <li class="nav-item"><a class="nav-link" href="/picnmix/"><span class="fa fa-home fa-lg accent"></span>Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="/picnmix/album/{{album.slug}}"><span
+          class="fa fa-arrow-left fa-lg accent"></span>Back to album</a></li>
     </ul>
   </div>
 </div>
+
 <div>
-  <form id="category_form" method="post" action="/rango/add_album/">
+  <form id="page_form" method="post" action="/rango/album/{{ album.slug }}/add_page/">
     {% csrf_token %}
     {% for hidden in form.hidden_fields %}
     {{ hidden }}
@@ -26,8 +32,14 @@ Add Album
     {{ field.help_text }}
     {{ field }}
     {% endfor %}
-    <input type="submit" name="submit" value="Create Album"/>
+    <input type="submit" name="submit" value="Add Page"/>
   </form>
+
+  {% else %}
+  This album does not exist.
+  {% endif%}
+
 </div>
 
 {% endblock %}
+

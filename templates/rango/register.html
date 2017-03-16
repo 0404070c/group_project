@@ -6,71 +6,71 @@ Register
 {% endblock %}
 
 {% block body_block %}
-    <div class="container-fluid menu">
-        <div class="container">
-            <ul class="nav">
-                <li class="nav-item"><a class="nav-link"><span class="nav-title hide">Register below </span></a></li>
-            </ul>
-        </div>
-    </div>
+<div class="container-fluid menu">
+  <div class="container">
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link"><span class="nav-title hide">Register below </span></a></li>
+    </ul>
+  </div>
+</div>
 
-    <div class="container">
-        <div class="row">
+<div class="container">
+  <div class="row">
 
     {% if registered %}
 
-        <div class="alert">
-            <strong>Thank you for registering!</strong> <a href="{% url 'index' %}">Return to the homepage to login.</a>
-        </div>
+    <div class="alert">
+      <strong>Thank you for registering!</strong> <a href="{% url 'index' %}">Return to the homepage to login.</a>
+    </div>
 
     {% else %}
-            <div class="col-sm-6 col-md-6 col-lg-6">
-                <img src="{% static "images/main.png" %}" class="img-responsive" alt="Picture of Rango" />
-            </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+      <img src="{% static " images/main.png" %}" class="img-responsive" alt="Picture of Rango" />
+    </div>
 
-            <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="card form">
-                    <div class="form-header">
-                        <div class="form-title">
-                            <h3>Register</h3>
-                            <h5>Create a username and password to register.</h5>
-                        </div>
-                        <div class="form-icon">
-                            <span class="fa fa-pencil"></span>
-                        </div>
-                    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+      <div class="card form">
+        <div class="form-header">
+          <div class="form-title">
+            <h3>Register</h3>
+            <h5>Create a username and password to register.</h5>
+          </div>
+          <div class="form-icon">
+            <span class="fa fa-pencil"></span>
+          </div>
+        </div>
 
-                    <div class="form-main">
-                        <div class="form-group">
-                            <form id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                {{ user_form.username }}
-                                {{ user_form.password }}
-                                <button type="submit" name="submit" id="form-submit" class="btn btn-lg btn-primary btn-block btn-default" value="Register">Register</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+        <div class="form-main">
+          <div class="form-group">
+            <form id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ user_form.username }}
+              {{ user_form.password }}
+              <button type="submit" name="submit" id="form-submit" class="btn btn-lg btn-primary btn-block btn-default"
+                      value="Register">Register
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
 
-                <div class="card form">
-                    <div class="form-header">
-                        <div class="form-title">
-                            <h3>Already registered?</h3>
-                            <h5><a href="{% url 'index' %}">Click here</a> to login!</h5>
-                        </div>
-                        <div class="form-icon">
-                            <span class="fa fa-lock"></span>
-                        </div>
-                    </div>
-                </div>
+      <div class="card form">
+        <div class="form-header">
+          <div class="form-title">
+            <h3>Already registered?</h3>
+            <h5><a href="{% url 'index' %}">Click here</a> to login!</h5>
+          </div>
+          <div class="form-icon">
+            <span class="fa fa-lock"></span>
+          </div>
+        </div>
+      </div>
 
 
-            </div>
-
-
+    </div>
 
 
     {% endif %}
-        </div>
-    </div>
+  </div>
+</div>
 {% endblock %}
