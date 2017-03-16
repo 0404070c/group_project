@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'tango_with_django_project.urls'
+ROOT_URLCONF = 'picnmix_project.urls'
 
 TEMPLATES = [
     {
@@ -75,7 +75,7 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 
 MEDIA_ROOT = MEDIA_DIR
 
-WSGI_APPLICATION = 'tango_with_django_project.wsgi.application'
+WSGI_APPLICATION = 'picnmix_project.wsgi.application'
 
 
 # Database
