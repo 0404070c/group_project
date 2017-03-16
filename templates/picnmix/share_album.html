@@ -1,0 +1,65 @@
+{% extends 'picnmix/index.html' %}
+{% load staticfiles %}
+{% block body_block %}
+  <!-- SECOND LEVEL ACTION MENU -->
+  {% if user.is_authenticated %}
+    <!-- SECOND LEVEL ACTION MENU -->
+    <div class="container-fluid menu">
+      <div class="container">
+        <ul class="nav">
+          <li class="nav-item"><a class="nav-link"><span
+              class="nav-title">{{ album.album_name }} - Share the album</span></a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/picnmix/"><span
+              class="fa fa-home fa-lg accent"></span>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/picnmix/album/{{ album.slug }}"><span
+              class="fa fa-arrow-left fa-lg accent"></span>Back to album</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+
+        <div class="col-sm-6 col-md-6 col-lg-6 offset-3">
+          <div class="card form">
+            <div class="form-header">
+              <div class="form-title">
+                <h3>Share</h3>
+                <h5>Share this album</h5>
+              </div>
+              <div class="form-icon">
+                <span class="fa fa-pencil"></span>
+              </div>
+            </div>
+
+            <div class="form-main">
+              <div class="form-group">
+                <form id="share_form" method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  {{ share_form.users }}
+                  <button type="submit" name="submit" id="form-submit"
+                          class="btn btn-lg btn-primary btn-block btn-default"
+                          value="Share">Share
+                  </button>
+                </form>
+              </div>
+            </div>
+            {% if success %}
+              <div class="card-footer">
+                <strong>Success! Thank you for sharing!</strong> <a href="{% url 'index' %}">Return to you homepage.</a>
+              </div>
+            {% else %}
+              <div class="card-footer">
+                <strong> {{ error_message }} </strong>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  {% else %}
+  {% endif %}
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from picnmix.models import Album, Photo
 from picnmix.models import Page
-from picnmix.forms import UserForm, UserProfileForm, AlbumForm, PhotoForm
+from picnmix.forms import UserForm, UserProfileForm, AlbumForm, PhotoForm, ShareForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -95,6 +95,29 @@ def show_album(request, album_name_slug):
 
   # Go render the response and return it to the client.
   return render(request, 'picnmix/album.html', context_dict)
+
+
+def share_album(request, album_name_slug):
+  context_dict = {}
+  share_form = ShareForm()
+  try:
+    album = Album.objects.get(slug=album_name_slug)
+    context_dict['album'] = album
+    context_dict['share_form'] = share_form
+    if request.method == 'POST':
+      share_form = ShareForm(data=request.POST)
+      if share_form.is_valid():
+        context_dict['share_form'] = share_form
+        data = album.set_share_user(share_form.cleaned_data['users'])
+        context_dict['success'] = data['success']
+        context_dict['error_message'] = data['error_message']
+        album.save()
+
+  except Album.DoesNotExist:
+    context_dict['album'] = None
+    context_dict['photos'] = None
+    context_dict['success'] = False
+  return render(request, 'picnmix/share_album.html', context_dict)
 
 
 def add_album(request):

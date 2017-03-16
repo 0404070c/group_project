@@ -35,6 +35,19 @@ class Album(models.Model):
     self.slug = slugify(self.album_name)
     super(Album, self).save(*args, **kwargs)
 
+  def set_share_user(self, share_user):
+    success = True
+    error_message = 'Something went wrong'
+    share_user = share_user.replace(' ', '')
+    share_user_as_list = share_user.split(',')
+    for user in share_user_as_list:
+      if not user in self.shared_users_as_list() and user != self.owner_id.username:
+        if self.shared_users_as_string == '':
+          self.shared_users_as_string += user
+        else:
+          self.shared_users_as_string += ',' + user
+    return {'success': success, 'error_message': error_message}
+
   def shared_users_as_list(self):
     if self.shared_users_as_string.split(',') != ['']:
       return self.shared_users_as_string.split(',')
