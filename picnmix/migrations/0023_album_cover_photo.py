@@ -9,13 +9,13 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('rango', '0022_auto_20170315_2123'),
+        ('picnmix', '0022_auto_20170315_2123'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='album',
             name='cover_photo',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, to='rango.Photo'),
+            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, to='picnmix.Photo'),
         ),
     ]

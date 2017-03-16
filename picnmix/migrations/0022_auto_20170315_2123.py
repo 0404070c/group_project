@@ -8,7 +8,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('rango', '0021_remove_album_coverpicture'),
+        ('picnmix', '0021_remove_album_coverpicture'),
     ]
 
     operations = [

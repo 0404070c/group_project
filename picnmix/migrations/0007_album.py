@@ -9,7 +9,7 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('rango', '0006_userprofile'),
+        ('picnmix', '0006_userprofile'),
     ]
 
     operations = [

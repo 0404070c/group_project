@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from rango.models import Album, Photo
-from rango.models import Page
-from rango.forms import UserForm, UserProfileForm, AlbumForm, PhotoForm
+from picnmix.models import Album, Photo
+from picnmix.models import Page
+from picnmix.forms import UserForm, UserProfileForm, AlbumForm, PhotoForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -45,7 +45,7 @@ def index(request):
   visitor_cookie_handler(request)
   context_dict['visits'] = request.session['visits']
 
-  response = render(request, 'rango/index.html', context_dict)
+  response = render(request, 'picnmix/index.html', context_dict)
   # Call function to handle the cookies
 
   return response
@@ -59,9 +59,9 @@ def about(request):
   visitor_cookie_handler(request)
   context_dict = {'visits': request.session['visits']}
 
-  response = render(request, 'rango/about.html', context_dict)
+  response = render(request, 'picnmix/about.html', context_dict)
   return response
-  # return render(request, 'rango/about.html', context_dict)
+  # return render(request, 'picnmix/about.html', context_dict)
 
 
 def show_album(request, album_name_slug):
@@ -94,7 +94,7 @@ def show_album(request, album_name_slug):
     context_dict['photos'] = None
 
   # Go render the response and return it to the client.
-  return render(request, 'rango/album.html', context_dict)
+  return render(request, 'picnmix/album.html', context_dict)
 
 
 def add_album(request):
@@ -120,7 +120,7 @@ def add_album(request):
 
   # Will handle the bad form, new form, or no form supplied cases.
   # Render the form with error messages (if any).
-  return render(request, 'rango/add_album.html', {'form': form})
+  return render(request, 'picnmix/add_album.html', {'form': form})
 
 
 def add_photo(request, album_name_slug):
@@ -142,7 +142,7 @@ def add_photo(request, album_name_slug):
       print(form.errors)
 
   context_dict = {'form': form, 'album': album}
-  return render(request, 'rango/add_photo.html', context_dict)
+  return render(request, 'picnmix/add_photo.html', context_dict)
 
 
 def register(request):
@@ -200,7 +200,7 @@ def register(request):
 
   # Render the template depending on the context.
   return render(request,
-                'rango/register.html',
+                'picnmix/register.html',
                 {'user_form': user_form,
                  'profile_form': profile_form,
                  'registered': registered})
@@ -247,12 +247,12 @@ def user_login(request):
   else:
     # No context variables to pass to the template system, hence the
     # blank dictionary object...
-    return render(request, 'rango/login.html', {})
+    return render(request, 'picnmix/login.html', {})
 
 
 @login_required
 def restricted(request):
-  return render(request, 'rango/restricted.html')
+  return render(request, 'picnmix/restricted.html')
 
 
 # Use the login_required() decorator to ensure only those logged in can access the view.

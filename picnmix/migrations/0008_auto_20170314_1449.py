@@ -10,7 +10,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('rango', '0007_album'),
+        ('picnmix', '0007_album'),
     ]
 
     operations = [

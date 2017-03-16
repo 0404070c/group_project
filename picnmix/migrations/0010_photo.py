@@ -10,7 +10,7 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('rango', '0009_album_sharedusers'),
+        ('picnmix', '0009_album_sharedusers'),
     ]
 
     operations = [
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('photoID', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('image', models.ImageField(upload_to=b'')),
-                ('album', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rango.Album')),
+                ('album', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='picnmix.Album')),
             ],
             options={
                 'verbose_name_plural': 'Photos',

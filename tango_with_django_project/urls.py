@@ -18,11 +18,11 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
-from rango import views
+from picnmix import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^picnmix/', include('rango.urls')),
+    url(r'^picnmix/', include('picnmix.urls')),
     # above maps any URLs starting
     # with picnmix/ to be handled by
     # the picnmix application

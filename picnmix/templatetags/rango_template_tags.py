@@ -1,9 +1,9 @@
 from django import template
-from rango.models import Category, Album, Photo
+from picnmix.models import Category, Album, Photo
 
 register = template.Library()
 
-@register.inclusion_tag('rango/album_list.html')
+@register.inclusion_tag('picnmix/album_list.html')
 def get_album_list(user=None):
   cover_photo_dict = {}
   all_albums = Album.objects.all()
