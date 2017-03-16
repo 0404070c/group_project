@@ -66,7 +66,7 @@ class PhotoForm(forms.ModelForm):
 
 class ShareForm(forms.ModelForm):
   users = forms.CharField(
-    widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter user to share with'}))
+    widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'user1, user2, user3, etc.'}))
 
   class Meta:
     model = Album

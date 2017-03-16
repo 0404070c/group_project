@@ -130,17 +130,15 @@ def add_album(request):
 
     # Have we been provided with a valid form?
     if form.is_valid():
-      # Save the new category to the database.
+      # Save the new album to the database.
       album = form.save(commit=False)
-      print '*******'
-      print album
       album.owner_id = request.user
       album.save()
-      # Now that the category is saved
+      # Now that the album is saved
       # We could give a confirmation message
       # But since the most recent category added is on the index page
       # Then we can direct the user back to the index page.
-      return index(request)
+      return redirect('index')
     else:
       # The supplied form contained errors -
       # just print them to the terminal.
@@ -167,7 +165,7 @@ def add_photo(request, album_name_slug):
         photo.save()
         # if 'picture' in request.FILES:
         #   photo.image = request.FILES['picture']
-        return show_album(request, album_name_slug)
+        return redirect('show_album', album_name_slug)
     else:
       print(form.errors)
 
@@ -286,10 +284,8 @@ def delete_album(request, album_name_slug):
   context_dict['album'] = album
   if request.method == 'POST':
     if request.user.username == album.owner_id.username:
-      print '*****'
-      print 'will delete'
       Album.objects.filter(slug=album_name_slug).delete()
-      return redirect('index', request)
+      return redirect('index')
     else:
       context_dict['success'] = False
       context_dict['message'] = 'You do not have the right to delete this album'

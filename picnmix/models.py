@@ -3,6 +3,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 import uuid
+import re
 
 
 class Category(models.Model):
@@ -37,19 +38,31 @@ class Album(models.Model):
 
   def set_share_user(self, share_user):
     success = True
-    error_message = 'Something went wrong'
+    error_message = None
+
+    # Remove any space from the user input
     share_user = share_user.replace(' ', '')
-    share_user_as_list = share_user.split(',')
-    for user in share_user_as_list:
-      if not self.shared_users_as_list() is None:
-        if not user in self.shared_users_as_list() and user != self.owner_id.username:
-          if self.shared_users_as_string == '':
-            self.shared_users_as_string += user
-          else:
-            self.shared_users_as_string += ',' + user
-      else:
-        if user != self.owner_id.username:
-          self.shared_users_as_string += user
+    # Replace multiple commas by one comma, avoiding empty string
+    share_user = re.sub(',+', ',', share_user)
+    # Removing duplicate entries
+    user_list = list(set(share_user.split(',')))
+
+    # Removing the owner from the shared users
+    try:
+      user_list.remove(self.owner_id.username)
+      error_message = "You can't share an album with yourself."
+    except ValueError:
+      pass
+
+    # Concatenate the two lists
+    if self.shared_users_as_list() is None:
+      new_user_list = user_list
+    else:
+      new_user_list = self.shared_users_as_list() + user_list
+    # Remove duplicates
+    new_user_list = list(set(new_user_list))
+    new_user_list.sort()
+    self.shared_users_as_string = ','.join(new_user_list)
 
     return {'success': success, 'error_message': error_message}
 
