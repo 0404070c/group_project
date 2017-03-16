@@ -22,14 +22,14 @@
           data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
           aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
-  <a class="navbar-brand" href="{% url 'index' %}"><span class="fa fa-camera fa-lg accent"></span> Pic 'n' Mix</a>
+  <a class="navbar-brand" href="{% url 'index' %}"><span class="fa fa-camera fa-lg accent"></span>Pic 'n' Mix</a>
 
   <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
     <ul class="navbar-nav">
       {% if user.is_authenticated %}
       <li class="nav-item"><span class="navbar-text">Welcome back {{ user.username }}!</span></li>
       <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><span
-          class="fa fa-sign-out accent"></span> Log out</a></li>
+          class="fa fa-sign-out accent"></span>Log out</a></li>
       {% else %}
       <li class="nav-item"><span class="navbar-text">Welcome, please <span
           class="fa fa-lock accent"></span>Login or <span

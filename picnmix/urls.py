@@ -3,6 +3,9 @@ from picnmix import views
 
 urlpatterns = [
   url(r'^$', views.index, name='index'),
+  url(r'^album/(?P<album_name_slug>[\w\-]+)/delete_album$',
+      views.delete_album,
+      name='delete_album'),
   url(r'^about', views.about, name='about'),
   url(r'^add_album/$', views.add_album, name='add_album'),
   url(r'^album/(?P<album_name_slug>[\w\-]+)/add_photo/$',

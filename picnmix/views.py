@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from django.shortcuts import redirect
 import uuid
 
 
@@ -277,6 +278,22 @@ def user_login(request):
     # No context variables to pass to the template system, hence the
     # blank dictionary object...
     return render(request, 'picnmix/login.html', {})
+
+
+def delete_album(request, album_name_slug):
+  context_dict = {}
+  album = Album.objects.get(slug=album_name_slug)
+  context_dict['album'] = album
+  if request.method == 'POST':
+    if request.user.username == album.owner_id.username:
+      print '*****'
+      print 'will delete'
+      Album.objects.filter(slug=album_name_slug).delete()
+      return redirect('index', request)
+    else:
+      context_dict['success'] = False
+      context_dict['message'] = 'You do not have the right to delete this album'
+  return render(request, 'picnmix/delete_album.html', context_dict)
 
 
 @login_required
