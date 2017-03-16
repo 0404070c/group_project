@@ -16,17 +16,11 @@ Add Album
   </div>
 </div>
 <div>
-  <form id="category_form" method="post" action="/rango/add_album/">
+  <form id="page_form" method="post" action="/picnmix/add_album/" enctype="multipart/form-data">
     {% csrf_token %}
-    {% for hidden in form.hidden_fields %}
-    {{ hidden }}
-    {% endfor %}
-    {% for field in form.visible_fields %}
-    {{ field.errors }}
-    {{ field.help_text }}
-    {{ field }}
-    {% endfor %}
-    <input type="submit" name="submit" value="Create Album"/>
+    {{ form.album_name }}
+    {{ form.album_description }}
+    <input type="submit" name="submit" value="Create an album"/>
   </form>
 </div>
 

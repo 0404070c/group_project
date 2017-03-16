@@ -130,7 +130,11 @@ def add_album(request):
     # Have we been provided with a valid form?
     if form.is_valid():
       # Save the new category to the database.
-      form.save(commit=True)
+      album = form.save(commit=False)
+      print '*******'
+      print album
+      album.owner_id = request.user
+      album.save()
       # Now that the category is saved
       # We could give a confirmation message
       # But since the most recent category added is on the index page
@@ -154,12 +158,14 @@ def add_photo(request, album_name_slug):
 
   form = PhotoForm()
   if request.method == 'POST':
-    form = PhotoForm(request.POST)
+    form = PhotoForm(request.POST, request.FILES)
     if form.is_valid():
       if album:
         photo = form.save(commit=False)
-        photo.album = album
+        photo.album_id = album
         photo.save()
+        # if 'picture' in request.FILES:
+        #   photo.image = request.FILES['picture']
         return show_album(request, album_name_slug)
     else:
       print(form.errors)

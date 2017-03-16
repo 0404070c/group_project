@@ -35,7 +35,7 @@
 
             <div class="form-main">
               <div class="form-group">
-                <form id="share_form" method="post" enctype="multipart/form-data">
+                <form id="share_form" method="post" action="/picnmix/album/{{ album.slug }}/share_album/" enctype="multipart/form-data">
                   {% csrf_token %}
                   {{ share_form.users }}
                   <button type="submit" name="submit" id="form-submit"

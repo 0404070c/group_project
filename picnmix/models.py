@@ -41,11 +41,16 @@ class Album(models.Model):
     share_user = share_user.replace(' ', '')
     share_user_as_list = share_user.split(',')
     for user in share_user_as_list:
-      if not user in self.shared_users_as_list() and user != self.owner_id.username:
-        if self.shared_users_as_string == '':
+      if not self.shared_users_as_list() is None:
+        if not user in self.shared_users_as_list() and user != self.owner_id.username:
+          if self.shared_users_as_string == '':
+            self.shared_users_as_string += user
+          else:
+            self.shared_users_as_string += ',' + user
+      else:
+        if user != self.owner_id.username:
           self.shared_users_as_string += user
-        else:
-          self.shared_users_as_string += ',' + user
+
     return {'success': success, 'error_message': error_message}
 
   def shared_users_as_list(self):
@@ -55,7 +60,7 @@ class Album(models.Model):
       return None
 
   def get_cover_photo(self, photo_set):
-    cover_photos = photo_set.filter(album_id=self, is_cover_photo=True)
+    cover_photos = photo_set.filter(album_id=self)
     if len(cover_photos) > 0:
       self.cover_photo = cover_photos[0].image
       return cover_photos[0].image
@@ -74,7 +79,6 @@ class Photo(models.Model):
   photo_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
   album_id = models.ForeignKey(Album)
   image = models.ImageField(upload_to='media/')
-  is_cover_photo = models.BooleanField(default=False)
 
   def save(self, *args, **kwargs):
     super(Photo, self).save(*args, **kwargs)

@@ -16,7 +16,6 @@ def get_album_list(user=None):
       album.cover_photo = photos[0].image
       cover_photo_dict[album.album_name] = photos[0].image
 #    cover_photo_dict[album.album_name] = cover_photo
-    print album.cover_photo
 
     if not shared_users is None and (user.username in shared_users):
       shared_albums.append(album)
