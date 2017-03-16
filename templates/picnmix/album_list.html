@@ -24,10 +24,14 @@
     {% for album in owned_albums %}
     <div class="col-sm-6 col-md-4 col-lg-4">
       <div class="card album">
+        {% if album.cover_photo %}
+        <img class="card-img-top" src="{{ album.cover_photo.url }}" alt=":-(">
+        {% endif %}
+
         {% for album_name, cover_photo in cover_photo_dict.items %}
-          {% if album_name == album.album_name and not cover_photo is None %}
-            <img class="card-img-top" src="{{ cover_photo.url }}" alt=":-(">
-          {% endif %}
+        {% if album_name == album.album_name and not cover_photo is None %}
+        <img class="card-img-top" src="{{ cover_photo.url }}" alt=":-(">
+        {% endif %}
         {% endfor %}
         <div class="card-block">
           <p><a href="{% url 'show_album' album.slug %}"><h2 class="card-title">{{album.album_name}}</h2></a></p>
@@ -51,9 +55,6 @@
         <div class="card-footer">
           <a href="#" class="card-link"><span class="fa fa-trash"></span> Delete</a>
           <a href="#" class="card-link"><span class="fa fa-share-alt"></span> Share</a>
-        </div>
-        <div class="card-footer">
-          <a href="#" class="card-link"><span class="fa fa-trash"></span> Link {{album.cover_photo}}</a>
         </div>
       </div>
     </div>
@@ -79,6 +80,11 @@
     {% for album in shared_albums %}
     <div class="col-sm-6 col-md-4 col-lg-4">
       <div class="card album">
+        {% for album_name, cover_photo in cover_photo_dict.items %}
+        {% if album_name == album.album_name and not cover_photo is None %}
+        <img class="card-img-top" src="{{ cover_photo.url }}" alt=":-(">
+        {% endif %}
+        {% endfor %}
         <div class="card-block">
           <p><a href="{% url 'show_album' album.slug %}"><h2 class="card-title">{{album.album_name}}</h2></a></p>
           <p class="card-text">{{album.album_description}}</p>
