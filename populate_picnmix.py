@@ -7,7 +7,8 @@ import django
 django.setup()
 from picnmix.models import Photo, Album, UserProfile
 from django.contrib.auth.models import User
-import glob, datetime, shutil
+from django.utils import timezone
+import glob, shutil
 
 dirname = os.path.dirname(os.path.realpath(__file__))
 pictures_path = os.path.join(dirname, 'media', 'pictures')
@@ -63,8 +64,8 @@ def add_user(new_user):
   user.first_name = name
   user.is_superuser = new_user["admin"]
   user.is_staff = new_user["admin"]
-  user.date_joined = datetime.datetime(2017, 1, 1)
-  user.last_login = datetime.datetime(2017, 2, 1)
+  user.date_joined = timezone.now()
+  user.last_login = timezone.now()
   profile = UserProfile.objects.create(user=user)
   user.save()
   profile.save()
@@ -73,3 +74,4 @@ def add_user(new_user):
 if __name__ == '__main__':
   print("Starting Picnmix population script...")
   populate()
+  print "Done"
