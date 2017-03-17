@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from picnmix.models import Album, Photo
-from picnmix.models import Page
-from picnmix.forms import UserForm, UserProfileForm, AlbumForm, PhotoForm, ShareForm
+from picnmix.forms import UserForm, AlbumForm, PhotoForm, ShareForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -185,7 +184,6 @@ def register(request):
     # Attempt to grab information from the raw form information.
     # Note that we make use of both UserForm and UserProfileForm.
     user_form = UserForm(data=request.POST)
-    profile_form = UserProfileForm(data=request.POST)
 
     # If the two forms are valid...
     if user_form.is_valid() and profile_form.is_valid():
@@ -204,15 +202,6 @@ def register(request):
       profile = profile_form.save(commit=False)
       profile.user = user
 
-      # Did the user provide a profile picture?
-      # If so, we need to get it from the input form and
-      # put it in the UserProfile model.
-      if 'picture' in request.FILES:
-        profile.picture = request.FILES['picture']
-
-      # Now we save the UserProfile model instance.
-      profile.save()
-
       # Update our variable to indicate that the template
       # registration was successful.
       registered = True
@@ -224,13 +213,11 @@ def register(request):
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
     user_form = UserForm()
-    profile_form = UserProfileForm()
 
   # Render the template depending on the context.
   return render(request,
                 'picnmix/register.html',
                 {'user_form': user_form,
-                 'profile_form': profile_form,
                  'registered': registered})
 
 

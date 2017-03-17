@@ -1,5 +1,5 @@
 from django import template
-from picnmix.models import Category, Album, Photo
+from picnmix.models import Album, Photo
 
 register = template.Library()
 
