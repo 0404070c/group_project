@@ -25,15 +25,16 @@
       <div class="card form">
         <div class="form-header">
           <div class="form-title">
-            <h3>Share {{ album.album_name }}</h3>
+            <h3>Share album: {{ album.album_name }}</h3>
+            <h5>Enter the users you want to share this album with:</h5>
           </div>
           <div class="form-icon">
-            <span class="fa fa-pencil"></span>
+            <span class="fa fa-share-alt"></span>
           </div>
         </div>
         <div class="form-main">
           <div class="form-group">
-            <a>Shared with
+            <a>Already shared with:
               {% if album.shared_users_as_list.count > 0 %}
               {% for user in album.shared_users_as_list %}
               <span class="badge badge-default"> {{ user }}</span>

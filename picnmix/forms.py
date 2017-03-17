@@ -4,9 +4,9 @@ from picnmix.models import Album, Photo
 
 
 class AlbumForm(forms.ModelForm):
-  album_name = forms.CharField(max_length=128,
-                         help_text="Please enter the category name.")
-  album_description = forms.CharField(widget=forms.Textarea, max_length=256)
+  album_name = forms.CharField(max_length=256, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Album name'}))
+
+  album_description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter a description of your new album'}), max_length=256)
   slug = forms.CharField(widget=forms.HiddenInput(), required=False)
 
   # An inline class to provide additional information on the form.
