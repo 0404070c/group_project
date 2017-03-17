@@ -1,18 +1,10 @@
 {% block body_block %}
 
   <div class="col-sm-6 col-md-6 col-lg-6">
-    <div class="card form">
-      <div class="form-header">
-        <div class="form-title">
-          <h3>Welcome to the Photo Album App!</h3>
-          <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. </h5>
-        </div>
-        <div class="form-icon">
-          <span class="fa fa-picture-o"></span>
-        </div>
-      </div>
-    </div>
+              <h4 class="display-4">Welcome to Pic'n'Mix!</h4>
+        <p class="lead">Create and share photos and albums with your friends.</p>
+        <hr class="my-4">
+
 
     <div class="card form">
       <div class="form-header">
@@ -37,19 +29,11 @@
           </form>
         </div>
       </div>
-    </div>
-
-    <div class="card form">
-      <div class="form-header">
-        <div class="form-title">
-          <h3>Not a Member?</h3>
-          <h5><a href="{% url 'register' %}">Click here</a> to register!</h5>
-        </div>
-        <div class="form-icon">
-          <span class="fa fa-pencil"></span>
-        </div>
+      <div class="card-footer">
+        <a>Not a member? <a href="{% url 'register' %}">Click here</a> to register!</a>
       </div>
     </div>
+
 
   </div>
 
