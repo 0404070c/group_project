@@ -72,15 +72,6 @@ class Album(models.Model):
     else:
       return None
 
-  def get_cover_photo(self, photo_set):
-    cover_photos = photo_set.filter(album_id=self)
-    if len(cover_photos) > 0:
-      self.cover_photo = cover_photos[0].image
-      return cover_photos[0].image
-    else:
-      self.cover_photo = None
-      return None
-
   class Meta:
     verbose_name_plural = 'Albums'
 

@@ -291,6 +291,20 @@ def delete_album(request, album_name_slug):
       context_dict['message'] = 'You do not have the right to delete this album'
   return render(request, 'picnmix/delete_album.html', context_dict)
 
+def delete_photo(request, album_name_slug, photo_id):
+  context_dict = {}
+  photo = Photo.objects.get(photo_id=photo_id)
+  context_dict['photo'] = photo
+  context_dict['album'] = photo.album_id
+  if request.method == 'POST':
+    if request.user.username == photo.album_id.owner_id.username:
+      Photo.objects.filter(photo_id=photo.photo_id).delete()
+      return redirect('show_album', album_name_slug)
+    else:
+      context_dict['success'] = False
+      context_dict['message'] = 'You do not have the right to delete this album'
+  return render(request, 'picnmix/delete_photo.html', context_dict)
+
 
 @login_required
 def restricted(request):
