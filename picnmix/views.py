@@ -186,7 +186,7 @@ def register(request):
     user_form = UserForm(data=request.POST)
 
     # If the two forms are valid...
-    if user_form.is_valid() and profile_form.is_valid():
+    if user_form.is_valid(): # and profile_form.is_valid():
       # Save the user's form data to the database.
       user = user_form.save()
 
@@ -199,8 +199,8 @@ def register(request):
       # Since we need to set the user attribute ourselves,
       # we set commit=False. This delays saving the model
       # until we're ready to avoid integrity problems.
-      profile = profile_form.save(commit=False)
-      profile.user = user
+      # profile = profile_form.save(commit=False)
+      # profile.user = user
 
       # Update our variable to indicate that the template
       # registration was successful.
@@ -208,7 +208,7 @@ def register(request):
     else:
       # Invalid form or forms - mistakes or something else?
       # Print problems to the terminal.
-      print(user_form.errors, profile_form.errors)
+      print(user_form.errors) # profile_form.errors)
   else:
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.

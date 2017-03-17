@@ -108,6 +108,15 @@ img {max-width: 100%;}
 		text-decoration: underline;
 	}
 
+	.add {
+		color: #212121;
+		font-weight: bold;
+	}
+
+	.add:hover {
+		color: #757575;
+	}
+
 
 /* FORM ------------------------------------------------------------------------ */
 

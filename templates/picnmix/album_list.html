@@ -15,7 +15,7 @@
 <div class="container">
   <div class="container-fluid">
     <h4 class="display-4">Your albums:</h4>
-    <p class="lead">These are a list of the albums that you have created.</p>
+    <p class="lead">Here are all of the albums that you have created.</p>
     <hr class="my-4">
   </div>
 
@@ -60,7 +60,7 @@
     {% endfor %}
     {% else %}
     <div class="alert">
-      <strong>You haven't created any albums yet!</strong> Use the menu above to add a new album.</a>.
+      <strong>You haven't created any albums yet!</strong> <a class="add" href="add_album"><span class="fa fa-plus-circle fa-lg accent"></span>Click here to create your first album.</a></a>.
     </div>
     {% endif %}
   </div>

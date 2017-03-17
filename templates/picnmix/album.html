@@ -30,7 +30,7 @@
         <div class="row">
           {% if photos %}
             {% for photo in photos %}
-              <div class="col-sm-6 col-md-4 col-lg-4">
+              <div class="col-sm-6 col-md-4 col-lg-4 offset-3">
                 <div class="card photo">
                   <img class="card-img-top" src="{{ photo.image.url }}" alt=":-(">
                   {% if user.username == album.owner_id.username %}
@@ -48,7 +48,9 @@
               </div>
             {% endfor %}
           {% else %}
-            <strong>No photos currently in album.</strong>
+            <div class="alert">
+                <strong>There is nothing in this album yet!</strong> <a class="add" href="/picnmix/album/{{ album.slug }}/add_photo"><span class="fa fa-plus-circle fa-lg accent"></span>Click here to add some photos.</a></a>.
+            </div>
           {% endif %}
         </div>
       </div>

@@ -22,11 +22,11 @@ def populate():
   ]
 
   albums = [
-    {"name": "San Francisco", "owner": "Alice", "prefix": "san_francisco_", "shared_with": ["Bob", "Eve"]},
-    {"name": "London", "owner": "Bob", "prefix": "london_", "shared_with": ["Eve"]},
-    {"name": "Great Wall of China", "owner": "Eve", "prefix": "gwc_", "shared_with": ["Bob"]},
-    {"name": "Skiing", "owner": "Alice", "prefix": "skiing_", "shared_with": ["Eve"]},
-    {"name": "Mauritius", "owner": "Alice", "prefix": "mauritius_", "shared_with": []}
+    {"name": "San Francisco", "description": "Week in San Francisco", "owner": "Alice", "prefix": "san_francisco_", "shared_with": ["Bob", "Eve"]},
+    {"name": "London", "description": "Weekend in London with Eve", "owner": "Bob", "prefix": "london_", "shared_with": ["Eve"]},
+    {"name": "Great Wall of China", "description": "Walk along the Great Wall of China", "owner": "Bob", "prefix": "gwc_", "shared_with": ["Eve"]},
+    {"name": "Skiing", "description": "Skiing in France in 2016", "owner": "Alice", "prefix": "skiing_", "shared_with": ["Eve"]},
+    {"name": "Mauritius", "description": "Holiday in Mauritius", "owner": "Alice", "prefix": "mauritius_", "shared_with": []}
   ]
 
   if not os.path.isdir(pictures_path):
@@ -42,7 +42,7 @@ def populate():
 def add_album(album_dict):
   owner = User.objects.get(username=album_dict["owner"])
   shared_users = ','.join(album_dict["shared_with"])
-  album = Album.objects.create(album_name=album_dict["name"], owner_id=owner, shared_users_as_string=shared_users)
+  album = Album.objects.create(album_name=album_dict["name"], album_description=album_dict["description"], owner_id=owner, shared_users_as_string=shared_users)
   population_dir = os.path.join(dirname, "static", "population_pictures", album_dict["prefix"])
   photos = glob.glob(population_dir + "*")
   for photo in photos:

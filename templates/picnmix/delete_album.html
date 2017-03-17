@@ -5,26 +5,46 @@
 {% endblock %}
 
 {% block body_block %}
-  <!-- SECOND LEVEL ACTION MENU -->
-  <div class="container-fluid menu">
+    <!-- SECOND LEVEL ACTION MENU -->
+    <div class="container-fluid menu">
+        <div class="container">
+            <ul class="nav">
+                <li class="nav-item"><a class="nav-link"><span class="nav-title">{{ album.album_name }} - Delete an album</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <div class="container">
-      <ul class="nav">
-        <li class="nav-item"><a class="nav-link"><span class="nav-title">{{ album.album_name }} - Delete an album</span></a>
-        </li>
-      </ul>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 offset-3">
+
+            <div class="card form">
+                <div class="form-header">
+                    <div class="form-title">
+                        <h3>Delete an Album</h3>
+                        <h5>Are you sure you want to delete the {{ album.album_name }} album?</h5>
+                    </div>
+                    <div class="form-icon">
+                        <span class="fa fa-trash"></span>
+                    </div>
+                </div>
+                <div class="form-main">
+
+                    <div class="form-group">
+                        <form id="page_form" method="post" action="/picnmix/album/{{ album.slug }}/delete_album/">
+                            {% csrf_token %}
+                            <button type="submit" name="submit" value="Delete photo"
+                                    class="btn btn-lg btn-primary btn-block btn-default"/>
+                            Delete Album</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            </div>
+        </div>
     </div>
-  </div>
-
-  <div class="container">
-    <div class="row">
-      Are you sure you want to delete this album? {{ album.album_name }}
-      <form id="page_form" method="post" action="/picnmix/album/{{ album.slug }}/delete_album/">
-        {% csrf_token %}
-        <input type="submit" name="submit" value="Delete album"/>
-      </form>
-
-
-    </div>
-  </div>
 
 {% endblock %}
