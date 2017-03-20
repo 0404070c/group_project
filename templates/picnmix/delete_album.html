@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
+    Delete Album
 {% endblock %}
 
 {% block body_block %}
@@ -11,6 +12,7 @@
             <ul class="nav">
                 <li class="nav-item"><a class="nav-link"><span class="nav-title">{{ album.album_name }} - Delete an album</span></a>
                 </li>
+                <li class="nav-item"><a class="nav-link" href="/picnmix/album/{{ album.slug }}"><span class="fa fa-arrow-left fa-lg accent"></span>Back to album</a></li>
             </ul>
         </div>
     </div>
@@ -37,6 +39,7 @@
                             <button type="submit" name="submit" value="Delete photo"
                                     class="btn btn-lg btn-primary btn-block btn-default"/>
                             Delete Album</button>
+                            <a class="btn btn-lg btn-primary btn-block btn-default" href="/picnmix/album/{{ album.slug }}" role="button">Cancel</a>
                         </form>
                     </div>
                 </div>

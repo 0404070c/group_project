@@ -28,6 +28,7 @@ img {max-width: 100%;}
 	}
 
 
+
 /* MENU ------------------------------------------------------------------------ */
 
 .menu {
@@ -166,7 +167,7 @@ img {max-width: 100%;}
 		background-color: #fff;
 		}
 
-button.btn {
+button.btn, a.btn {
 	height: 50px;
 	margin-top: 40px;
 	padding: 0 20px;
@@ -181,7 +182,7 @@ button.btn {
 	text-transform: uppercase;
 	}
 
-button.btn:hover {
+button.btn:hover, a.btn:hover {
 	background: #607D8B;
 	color: #fff;
 	}

@@ -70,7 +70,10 @@ TEMPLATES = [
         },
     },
 ]
+# TO WORK IN PYTHON ANYWHERE
+# STATIC_ROOT =  "/home/0404070c/group_project/static"
 
+# TO WORK LOCALLY
 STATICFILES_DIRS = [STATIC_DIR, ]
 
 MEDIA_ROOT = MEDIA_DIR
