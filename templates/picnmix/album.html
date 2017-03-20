@@ -6,67 +6,97 @@
 {% endblock %}
 
 {% block body_block %}
-<!-- SECOND LEVEL ACTION MENU -->
-{% if user.is_authenticated %}
-<div class="container-fluid menu">
-  <div class="container">
-    <ul class="nav">
-      <li class="nav-item"><a class="nav-link"><span class="nav-title">{{ album.album_name }} </span></a>
-      </li>
-      <li class="nav-item"><a class="nav-link" href="/picnmix/"><span
-          class="fa fa-home fa-lg accent"></span>Home</a>
-      </li>
-      <li class="nav-item"><a class="nav-link" href="/picnmix/album/{{ album.slug }}/add_photo"><span
-          class="fa fa-plus-circle fa-lg accent"></span>Add
-        Photos</a></li>
-      <li class="nav-item"><a class="nav-link" href="/picnmix/album/{{ album.slug }}/share_album"><span
-          class="fa fa-share-alt fa-lg accent"></span>Share
-        Album</a></li>
-      <li class="nav-item"><a class="nav-link" href="/picnmix/album/{{ album.slug }}/delete_album"><span
-          class="fa fa-trash fa-lg accent"></span>Delete Album</a>
-      </li>
-    </ul>
-  </div>
-</div>
-
-{% if album %}
-<div class="container">
-
-  <div class="row">
-    {% if photos %}
-    {% for photo in photos %}
-    <div class="col-sm-8 col-md-6 col-lg-4">
-      <div class="card photo">
-        <img class="card-img-top" src="{{ photo.image.url }}" alt=":-(">
-        {% if user.username == album.owner_id.username %}
-        <div class="card-footer">
-
-
-          <a href="/picnmix/album/{{ album.slug }}/{{ photo.photo_id }}/delete_photo/"
-             class="card-link"><span
-              class="fa fa-trash"></span> Delete</a>
-
-
+    <!-- SECOND LEVEL ACTION MENU -->
+    {% if user.is_authenticated %}
+        <div class="container-fluid menu" xmlns="http://www.w3.org/1999/html">
+            <div class="container">
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link"><span class="nav-title">{{ album.album_name }} </span></a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/picnmix/"><span
+                            class="fa fa-home fa-lg accent"></span>Home</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/picnmix/album/{{ album.slug }}/add_photo"><span
+                            class="fa fa-plus-circle fa-lg accent"></span>Add
+                        Photos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/picnmix/album/{{ album.slug }}/share_album"><span
+                            class="fa fa-share-alt fa-lg accent"></span>Share
+                        Album</a></li>
+                    {% if user.username == album.owner_id.username %}
+                        <li class="nav-item">
+                        <a class="nav-link" href="/picnmix/album/{{ album.slug }}/delete_album"><span
+                                class="fa fa-trash fa-lg accent"></span>Delete Album</a>
+                    {% endif %}
+                    </li>
+                </ul>
+            </div>
         </div>
+        <!-- END OF SECOND LEVEL ACTION MENU -->
+
+        {% if album %}
+
+            <div class="container">
+
+
+                <div class="row">
+                    {% if photos %}
+                        {% for photo in photos %}
+                            <div class="col-sm-12 col-md-6 col-lg-4">
+                                <div class="card photo">
+
+                                    <!-- MODAL - DOESNT SHOW FULL SIZE
+                                    <div id="myModal{{ photo.photo_id }}" class="modal fade" tabindex="-1" role="dialog"
+                                         aria-labelledby="myModal{{ photo.image.url }}Label"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img src="{{ photo.image.url }}" alt=":-(">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <a data-toggle="modal" data-target="#myModal{{ photo.photo_id }}">
+                                        -->
+                                    <a href="{{ photo.image.url }}">
+                                        <img class="card-img-top" src="{{ photo.image.url }}" alt=":-("></a>
+                                    {% if user.username == album.owner_id.username %}
+                                        <div class="card-footer">
+
+
+                                            <a href="/picnmix/album/{{ album.slug }}/{{ photo.photo_id }}/delete_photo/"
+                                               class="card-link"><span
+                                                    class="fa fa-trash"></span> Delete</a>
+
+
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="alert">
+                            <strong>There is nothing in this album yet!</strong> <a class="add"
+                                                                                    href="/picnmix/album/{{ album.slug }}/add_photo"><span
+                                class="fa fa-plus-circle fa-lg accent"></span>Click here to add some photos.</a></a>.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            The specified album does not exist!
         {% endif %}
-      </div>
-    </div>
-    {% endfor %}
+        </div>
     {% else %}
-    <div class="alert">
-      <strong>There is nothing in this album yet!</strong> <a class="add"
-                                                              href="/picnmix/album/{{ album.slug }}/add_photo"><span
-        class="fa fa-plus-circle fa-lg accent"></span>Click here to add some photos.</a></a>.
-    </div>
+        <a href="{% url 'login' %}">Sign In to add a page.</a><br/>
     {% endif %}
-  </div>
-</div>
-{% else %}
-The specified album does not exist!
-{% endif %}
-</div>
-{% else %}
-<a href="{% url 'login' %}">Sign In to add a page.</a><br/>
-{% endif %}
-</div>
+    </div>
 {% endblock %}

@@ -2,114 +2,119 @@
 
 <!-- SECOND LEVEL ACTION MENU -->
 <div class="container-fluid menu">
-  <div class="container">
-    <ul class="nav">
-      <li class="nav-item"><a class="nav-link"><span class="nav-title">Your Albums </span></a></li>
-      <li class="nav-item"><a class="nav-link" href="add_album"><span class="fa fa-plus-circle fa-lg accent"></span>Create
-        a
-        new album</a></li>
-    </ul>
-  </div>
+    <div class="container">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link"><span class="nav-title">Your Albums </span></a></li>
+            <li class="nav-item"><a class="nav-link" href="add_album"><span
+                    class="fa fa-plus-circle fa-lg accent"></span>Create
+                a
+                new album</a></li>
+        </ul>
+    </div>
 </div>
+<!-- END OF SECOND LEVEL ACTION MENU -->
 
 <div class="container">
-  <div class="container-fluid">
-    <h4 class="display-4">Your albums:</h4>
-    <p class="lead">Here are all of the albums that you have created.</p>
-    <hr class="my-4">
-  </div>
+    <div class="container-fluid">
+        <h4 class="display-4">Your albums:</h4>
+        <p class="lead">Here are all of the albums that you have created.</p>
+        <hr class="my-4">
+    </div>
 
 
-  <div class="row">
-    {% if owned_albums %}
-    {% for album in owned_albums %}
-    <div class="col-sm-6 col-md-4 col-lg-4">
-      <div class="card album">
+    <div class="row">
+        {% if owned_albums %}
+            {% for album in owned_albums %}
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <div class="card album">
 
-        {% if album.cover_photo %}
-        <img class="card-img-top" src="{{ album.cover_photo.url }}" alt="Missing cover photo">
-        {% endif %}
+                        {% if album.cover_photo %}
+                            <img class="card-img-top" src="{{ album.cover_photo.url }}" alt="Missing cover photo">
+                        {% endif %}
 
-        <div class="card-block">
-          <p><a href="{% url 'show_album' album.slug %}"><h2 class="card-title">{{album.album_name}}</h2></a></p>
-          <p class="card-text">{{album.album_description}}</p>
-        </div>
-        <div class="card-footer">
-          <a><span class="fa fa-user"></span> Created by: {{ album.owner_id }} </a>
-        </div>
+                        <div class="card-block">
+                            <p><a href="{% url 'show_album' album.slug %}"><h2
+                                    class="card-title">{{ album.album_name }}</h2></a></p>
+                            <p class="card-text">{{ album.album_description }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a><span class="fa fa-user"></span> Created by: {{ album.owner_id }} </a>
+                        </div>
 
-        {% if album.shared_users_as_list %}
-        <div class="card-footer">
-          <a><span class="fa fa-users"></span> Shared with:
-            {% for user in album.shared_users_as_list %}
-            {% if not user is None %}
-            <span class="badge badge-default"> {{ user }}</span>
-            {% endif %}
+                        {% if album.shared_users_as_list %}
+                            <div class="card-footer">
+                                <a><span class="fa fa-users"></span> Shared with:
+                                    {% for user in album.shared_users_as_list %}
+                                        {% if not user is None %}
+                                            <span class="badge badge-default"> {{ user }}</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </a>
+                            </div>
+                        {% endif %}
+                        <div class="card-footer">
+                            <a href="/picnmix/album/{{ album.slug }}/delete_album" class="card-link"><span
+                                    class="fa fa-trash accent"></span>Delete</a>
+                            <a href="/picnmix/album/{{ album.slug }}/share_album" class="card-link"><span
+                                    class="fa fa-share-alt fa-lg accent"></span>Share</a>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-          </a>
-        </div>
+        {% else %}
+            <div class="alert">
+                <strong>You haven't created any albums yet!</strong> <a class="add" href="add_album"><span
+                    class="fa fa-plus-circle fa-lg accent"></span>Click here to create your first album.</a></a>.
+            </div>
         {% endif %}
-        <div class="card-footer">
-          <a href="/picnmix/album/{{ album.slug }}/delete_album" class="card-link"><span
-              class="fa fa-trash accent"></span>Delete</a>
-          <a href="/picnmix/album/{{ album.slug }}/share_album" class="card-link"><span
-              class="fa fa-share-alt fa-lg accent"></span>Share</a>
-        </div>
-      </div>
     </div>
-    {% endfor %}
-    {% else %}
-    <div class="alert">
-      <strong>You haven't created any albums yet!</strong> <a class="add" href="add_album"><span class="fa fa-plus-circle fa-lg accent"></span>Click here to create your first album.</a></a>.
-    </div>
-    {% endif %}
-  </div>
 </div>
 
 
 <div class="container">
-  <div class="container-fluid">
-    <h4 class="display-4">Albums shared with you:</h4>
-    <p class="lead">These are a list of the albums other people have shared with you.</p>
-    <hr class="my-4">
-  </div>
+    <div class="container-fluid">
+        <h4 class="display-4">Albums shared with you:</h4>
+        <p class="lead">These are a list of the albums other people have shared with you.</p>
+        <hr class="my-4">
+    </div>
 
-  <div class="row">
-    {% if shared_albums %}
-    {% for album in shared_albums %}
-    <div class="col-sm-6 col-md-4 col-lg-4">
-      <div class="card album">
+    <div class="row">
+        {% if shared_albums %}
+            {% for album in shared_albums %}
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <div class="card album">
 
-        {% if album.cover_photo %}
-        <img class="card-img-top" src="{{ album.cover_photo.url }}" alt="Missing cover photo">
-        {% endif %}
+                        {% if album.cover_photo %}
+                            <img class="card-img-top" src="{{ album.cover_photo.url }}" alt="Missing cover photo">
+                        {% endif %}
 
-        <div class="card-block">
-          <p><a href="{% url 'show_album' album.slug %}"><h2 class="card-title">{{album.album_name}}</h2></a></p>
-          <p class="card-text">{{album.album_description}}</p>
-        </div>
-        <div class="card-footer">
-          <a><span class="fa fa-user"></span> Created by: {{ album.owner_id }}</a>
-        </div>
+                        <div class="card-block">
+                            <p><a href="{% url 'show_album' album.slug %}"><h2
+                                    class="card-title">{{ album.album_name }}</h2></a></p>
+                            <p class="card-text">{{ album.album_description }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a><span class="fa fa-user"></span> Created by: {{ album.owner_id }}</a>
+                        </div>
 
-        {% if album.shared_users_as_list %}
-        <div class="card-footer">
-          <a><span class="fa fa-users"></span> Shared with:
-            {% for user in album.shared_users_as_list %}
-            {% if not user is None %}
-            <span class="badge badge-default"> {{ user }}</span>
-            {% endif %}
+                        {% if album.shared_users_as_list %}
+                            <div class="card-footer">
+                                <a><span class="fa fa-users"></span> Shared with:
+                                    {% for user in album.shared_users_as_list %}
+                                        {% if not user is None %}
+                                            <span class="badge badge-default"> {{ user }}</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
             {% endfor %}
-          </a>
-        </div>
+        {% else %}
+            <div class="alert">
+                <strong>There are no albums that have been shared with you yet.</strong></a>
+            </div>
         {% endif %}
-      </div>
     </div>
-    {% endfor %}
-    {% else %}
-    <div class="alert">
-      <strong>There are no albums that have been shared with you yet.</strong></a>
-    </div>
-    {% endif %}
-  </div>
 </div>

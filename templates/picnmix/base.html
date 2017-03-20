@@ -15,10 +15,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
   <link rel="stylesheet" href="{%  static 'styles/style.css' %}" type="text/css">
 
-  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-  <script src="{%  static 'scripts/app.js' %}"></script>
+
 </head>
 <body>
 
@@ -27,18 +24,16 @@
           data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
           aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
-  <a class="navbar-brand" href="{% url 'index' %}"><img src="{%  static 'images/logo.svg' %}" class="img-fluid d-inline-block" alt="Pic'n'Mix"></a>
+  <a class="navbar-brand" href="{% url 'index' %}"><img src="{%  static 'images/logo.svg' %}" class="img-fluid d-inline-block align-top" alt="Pic'n'Mix"></a>
 
   <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
     <ul class="navbar-nav">
       {% if user.is_authenticated %}
-      <li class="nav-item"><span class="navbar-text">Welcome back {{ user.username }}!</span></li>
-      <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><span
-          class="fa fa-sign-out accent"></span>Log out</a></li>
+      <li class="nav-item"><span class="navbar-text"><span class="fa fa-user accent"></span>Welcome back {{ user.username }}!</span></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><span class="fa fa-sign-out accent"></span>Log out</a></li>
       {% else %}
-      <li class="nav-item"><span class="navbar-text">Welcome, please <span
-          class="fa fa-lock accent"></span>Login or <span
-          class="fa fa-pencil accent"></span>Register below.</li>
+      <li class="nav-item"><span class="navbar-text">Welcome, please <span class="fa fa-lock accent">
+      </span>Login or <span class="fa fa-pencil accent"></span>Register below.</li>
       {% endif %}
     </ul>
   </div>
@@ -50,6 +45,11 @@
   {% endblock %}
 </div>
 <div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  <script src="{%  static 'scripts/app.js' %}"></script>
 
 </body>
 </html>

@@ -1,75 +1,78 @@
 {% extends 'picnmix/index.html' %}
 {% load staticfiles %}
 {% block body_block %}
-<!-- SECOND LEVEL ACTION MENU -->
-{% if user.is_authenticated %}
-<!-- SECOND LEVEL ACTION MENU -->
-<div class="container-fluid menu">
-  <div class="container">
-    <ul class="nav">
-      <li class="nav-item"><a class="nav-link"><span
-          class="nav-title">{{ album.album_name }} - Share the album</span></a>
-      </li>
-      <li class="nav-item"><a class="nav-link" href="/picnmix/"><span
-          class="fa fa-home fa-lg accent"></span>Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="/picnmix/album/{{ album.slug }}"><span
-          class="fa fa-arrow-left fa-lg accent"></span>Back to album</a></li>
-    </ul>
-  </div>
-</div>
+    <!-- SECOND LEVEL ACTION MENU -->
+    {% if user.is_authenticated %}
+        <!-- SECOND LEVEL ACTION MENU -->
+        <div class="container-fluid menu">
+            <div class="container">
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link"><span
+                            class="nav-title">{{ album.album_name }} - Share the album</span></a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/picnmix/"><span
+                            class="fa fa-home fa-lg accent"></span>Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/picnmix/album/{{ album.slug }}"><span
+                            class="fa fa-arrow-left fa-lg accent"></span>Back to album</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- END OF SECOND LEVEL ACTION MENU -->
 
-<div class="container">
-  <div class="row">
+        <div class="container">
+            <div class="row">
 
-    <div class="col-sm-6 col-md-6 col-lg-6 offset-3">
-      <div class="card form">
-        <div class="form-header">
-          <div class="form-title">
-            <h3>Share album: {{ album.album_name }}</h3>
-            <h5>Enter the users you want to share this album with:</h5>
-          </div>
-          <div class="form-icon">
-            <span class="fa fa-share-alt"></span>
-          </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 offset-3">
+                    <div class="card form">
+                        <div class="form-header">
+                            <div class="form-title">
+                                <h3>Share album: {{ album.album_name }}</h3>
+                                <h5>Enter the users you want to share this album with:</h5>
+                            </div>
+                            <div class="form-icon">
+                                <span class="fa fa-share-alt"></span>
+                            </div>
+                        </div>
+                        <div class="form-main">
+                            <div class="form-group">
+                                <a>Already shared with:
+                                    {% if album.shared_users_as_list.count > 0 %}
+                                        {% for user in album.shared_users_as_list %}
+                                            <span class="badge badge-default"> {{ user }}</span>
+                                        {% endfor %}
+                                    {% else %} no one
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <div class="form-group">
+                                <form id="share_form" method="post"
+                                      action="/picnmix/album/{{ album.slug }}/share_album/"
+                                      enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ share_form.users }}
+                                    <button type="submit" name="submit" id="form-submit"
+                                            class="btn btn-lg btn-primary btn-block btn-default"
+                                            value="Share">Share
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        {% if success %}
+                            <div class="card-footer">
+                                {% if error_message %}
+                                    <a>{{ error_message }} </a>
+                                    </div>
+                                    <div class="card-footer">
+                                {% endif %}
+                            <strong>Success! Thank you for sharing!</strong>
+                            <a href="{% url 'index' %}">Return to your homepage.</a>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-main">
-          <div class="form-group">
-            <a>Already shared with:
-              {% if album.shared_users_as_list.count > 0 %}
-              {% for user in album.shared_users_as_list %}
-              <span class="badge badge-default"> {{ user }}</span>
-              {% endfor %}
-              {% else %} no one
-              {% endif %}
-            </a>
-          </div>
-          <div class="form-group">
-            <form id="share_form" method="post" action="/picnmix/album/{{ album.slug }}/share_album/"
-                  enctype="multipart/form-data">
-              {% csrf_token %}
-              {{ share_form.users }}
-              <button type="submit" name="submit" id="form-submit"
-                      class="btn btn-lg btn-primary btn-block btn-default"
-                      value="Share">Share
-              </button>
-            </form>
-          </div>
-        </div>
-        {% if success %}
-        <div class="card-footer">
-          {% if error_message %}
-          <a>{{ error_message }} </a>
-        </div>
-        <div class="card-footer">
-          {% endif %}
-          <strong>Success! Thank you for sharing!</strong> <a href="{% url 'index' %}">Return to your homepage.</a>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-{% else %}
-{% endif %}
+    {% else %}
+    {% endif %}
 {% endblock %}
