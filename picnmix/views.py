@@ -255,14 +255,14 @@ def user_login(request):
     else:
       # Bad login details were provided. So we can't log the user in.
       print("Invalid login details: {0}, {1}".format(username, password))
-      return render(request, 'picnmix/index.html', {})
+      return render(request, 'picnmix/index.html', {'login_error': True})
 
       # The request is not a HTTP POST, so display the login form.
       # This scenario would most likely be a HTTP GET.
   else:
     # No context variables to pass to the template system, hence the
     # blank dictionary object...
-    return render(request, 'picnmix/login.html', {})
+    return render(request, 'picnmix/login.html', {'login_error': False})
 
 
 def delete_album(request, album_name_slug):

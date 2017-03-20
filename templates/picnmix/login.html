@@ -23,11 +23,17 @@
           {% csrf_token %}
           <input type="text" class="form-control" id="login-username" placeholder="Username" name="username">
           <input type="password" class="form-control" id="login-password" placeholder="Password" name="password">
-          <button type="submit" id="login-form-submit" class="btn btn-lg btn-primary btn-block btn-default" value="submit">
+          <button type="submit" id="login-form-submit" class="btn btn-lg btn-primary btn-block btn-default"
+                  value="submit">
             Login
           </button>
         </form>
       </div>
+      {% if login_error %}
+      <div class="form-group">
+        <div class="alert alert-danger" role="alert">Invalid login details.</div>
+      </div>
+      {% endif %}
     </div>
     <div class="card-footer">
       <a>Not a member? <a class="add" href="{% url 'register' %}">Click here</a> to register!</a>
