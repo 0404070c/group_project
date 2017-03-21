@@ -13,6 +13,8 @@ Run the following to create users and populate albums with photos:
 
 3. python populate_picnmix.py
 
+For simplicity, the virtual environment has been kept the same as for Rango.
+
 ---
 
 This will create 3 example users, 'Alice', 'Bob', and 'Eve'. You can log in as any of these users with 'password'.
