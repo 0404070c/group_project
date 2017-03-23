@@ -8,66 +8,65 @@
 {% block body_block %}
 
     {% if album %}
-        <!-- SECOND LEVEL ACTION MENU -->
-        <div class="container-fluid menu">
-            <div class="container">
-                <ul class="nav">
-                    <li class="nav-item"><a class="nav-link"><span
-                            class="nav-title">{{ album.album_name }} - Add a photo</span></a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="/picnmix/"><span
-                            class="fa fa-home fa-lg accent"></span>Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/picnmix/album/{{ album.slug }}"><span
-                            class="fa fa-arrow-left fa-lg accent"></span>Back to album</a></li>
-                </ul>
-            </div>
-        </div>
-        <!-- END OF SECOND LEVEL ACTION MENU -->
-
+    <!-- SECOND LEVEL ACTION MENU -->
+    <div class="container-fluid menu">
         <div class="container">
+            <ul class="nav">
+                <li class="nav-item"><a class="nav-link"><span
+                        class="nav-title">{{ album.album_name }} - Add a photo</span></a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/picnmix/"><span
+                        class="fa fa-home fa-lg accent"></span>Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/picnmix/album/{{ album.slug }}"><span
+                        class="fa fa-arrow-left fa-lg accent"></span>Back to album</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- END OF SECOND LEVEL ACTION MENU -->
+
+    <!-- DISPLAY THE FORM TO ADD A PHOTO TO AN ALBUM -->
+    <div class="container">
         <div class="row">
 
-        <div class="col-sm-6 col-md-6 col-lg-6 offset-3">
-        <div class="card form">
-        <div class="form-header">
-            <div class="form-title">
-                <h3>Add a photo</h3>
-                <h5>Select a photo to upload to the {{ album.album_name }} album:</h5>
+            <div class="col-sm-6 col-md-6 col-lg-6 offset-3">
+                <div class="card form">
+                <div class="form-header">
+                    <div class="form-title">
+                        <h3>Add a photo</h3>
+                        <h5>Select a photo to upload to the {{ album.album_name }} album:</h5>
+                    </div>
+                    <div class="form-icon">
+                        <span class="fa fa-plus-square"></span>
+                    </div>
+                </div>
+
+                <div class="form-main">
+                    <div class="form-group">
+                        <form method="post" action="/picnmix/album/{{ album.slug }}/add_photo/"
+                              enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.image }}
+                            {{ form.album_id }}
+                            <button type="submit" name="submit" id="form-submit"
+                                    class="btn btn-lg btn-primary btn-block btn-default"
+                                    value="Create an album">Add a photo
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+
+
+                {% else %}
+                    This album does not exist.
+                {% endif %}
+
+                </div>
             </div>
-            <div class="form-icon">
-                <span class="fa fa-plus-square"></span>
-            </div>
+
+
         </div>
-
-        <div class="form-main">
-            <div class="form-group">
-                <form method="post" action="/picnmix/album/{{ album.slug }}/add_photo/"
-                      enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.image }}
-                    {{ form.album_id }}
-                    <button type="submit" name="submit" id="form-submit"
-                            class="btn btn-lg btn-primary btn-block btn-default"
-                            value="Create an album">Add a photo
-                    </button>
-                </form>
-            </div>
-        </div>
-
-
-
-    {% else %}
-        This album does not exist.
-    {% endif %}
-
-</div>
-</div>
-
-
-
-
-</div>
-</div>
+    </div>
 
 {% endblock %}
 

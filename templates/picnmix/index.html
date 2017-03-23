@@ -3,6 +3,7 @@
 {% load picnmix_template_tags %}
 
 {% block body_block %}
+    <!-- MAIN INDEX PAGE. LOAD THE USERS ALBUMS, OR LOGIN PAGE DEPENDING ON CONTEXT -->
   <div>
     {% if user.is_authenticated %}
       {% block sidebar_block %}

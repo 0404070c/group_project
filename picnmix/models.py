@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 import uuid
 import re
 
+# THE ALBUM MODEL, WITH A UNIQUE ID, AND EACH TIED TO AN OWNER, AND MULTIPLE SHARED USERS
 class Album(models.Model):
   album_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
   album_name = models.CharField(max_length=128)
@@ -22,26 +23,26 @@ class Album(models.Model):
     success = True
     error_message = None
 
-    # Remove any space from the user input
+    # REMOVE ANY SPACE FROM THE USER INPUT
     share_user = share_user.replace(' ', '')
-    # Replace multiple commas by one comma, avoiding empty string
+    # REPLACE MULTIPLE COMMAS BY ONE COMMA, AVOIDING EMPTY STRING
     share_user = re.sub(',+', ',', share_user)
-    # Removing duplicate entries
+    # REMOVING DUPLICATE ENTRIES
     user_list = list(set(share_user.split(',')))
 
-    # Removing the owner from the shared users
+    # REMOVING THE OWNER FROM THE LIST OF SHARED USERS
     try:
       user_list.remove(self.owner_id.username)
       error_message = "You can't share an album with yourself."
     except ValueError:
       pass
 
-    # Concatenate the two lists
+    # CONCATENATE THE TWO LISTS
     if self.shared_users_as_list() is None:
       new_user_list = user_list
     else:
       new_user_list = self.shared_users_as_list() + user_list
-    # Remove duplicates
+    # REMOVE DUPLICATES
     new_user_list = list(set(new_user_list))
     new_user_list.sort()
     self.shared_users_as_string = ','.join(new_user_list)
@@ -60,7 +61,7 @@ class Album(models.Model):
   def __str__(self):  # For Python 2, use __unicode__ too
     return self.album_name
 
-
+# THE PHOTO MODEL, WITH EACH PHOTO TIED TO AN ALBUM, AND EACH HAVING A UNIQUE ID
 class Photo(models.Model):
   photo_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
   album_id = models.ForeignKey(Album)
@@ -75,7 +76,7 @@ class Photo(models.Model):
   def __str__(self):  # For Python 2, use __unicode__ too
     return str(self.photo_id)
 
-
+# USERPROFILE, EXTENDING THE USER MODEL
 class UserProfile(models.Model):
   # This line is required. Links UserProfile to a User model instance.
   user = models.OneToOneField(User)

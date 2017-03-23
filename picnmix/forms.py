@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from picnmix.models import Album, Photo
 
-
+# FORM USED TO CREATE A NEW ALBUM
 class AlbumForm(forms.ModelForm):
   album_name = forms.CharField(max_length=256, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Album name'}))
 
@@ -15,7 +15,7 @@ class AlbumForm(forms.ModelForm):
     model = Album
     fields = ('album_name', 'album_description')
 
-
+# FORM USED TO CREATE/ADD A NEW PHOTO
 class PhotoForm(forms.ModelForm):
   class Meta:
     # Provide an association between the ModelForm and a model
@@ -30,7 +30,7 @@ class PhotoForm(forms.ModelForm):
     # or specify the fields to include (i.e. not include the category field)
     fields = ('image',)
 
-
+# FORM TO SHARE AN ALBUM WITH ANOTHER USER
 class ShareForm(forms.ModelForm):
   users = forms.CharField(
     widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'user1, user2, user3, etc.'}))
@@ -39,7 +39,7 @@ class ShareForm(forms.ModelForm):
     model = Album
     fields = ('users',)
 
-
+# USER REGISTRATION FORM
 class UserForm(forms.ModelForm):
   username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
   password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
